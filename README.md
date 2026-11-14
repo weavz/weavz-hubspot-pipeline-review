@@ -1,4 +1,20 @@
-# HubSpot Pipeline Review
+# HubSpot MCP agent with PydanticAI: HubSpot Pipeline Review
+
+<!-- weavz:discovery:start -->
+
+Use HubSpot with PydanticAI through Weavz MCP. This hubspot pipeline review example returns a report from bounded app reads with source references.
+
+**Framework:** PydanticAI · **Language:** Python · **MCP modes:** Tool Mode and Code Mode
+
+Use another framework:
+
+- [HubSpot MCP with CrewAI Python](https://github.com/weavz/weavz-crewai/blob/main/docs/app-recipes.md#hubspot-mcp-with-crewai-python)
+- [HubSpot MCP with Agno Python](https://github.com/weavz/weavz-agno/blob/main/docs/app-recipes.md#hubspot-mcp-with-agno-python)
+- [HubSpot MCP with Vercel AI SDK TypeScript](https://github.com/weavz/weavz-vercel-ai-sdk/blob/main/docs/app-recipes.md#hubspot-mcp-with-vercel-ai-sdk-typescript)
+
+[MCP app and framework directory](https://github.com/weavz/mcp-examples/blob/main/docs/integrations.md) · [All examples](https://github.com/weavz/mcp-examples) · [Weavz MCP guide](https://weavz.io/docs/guides/agent-framework-examples)
+
+<!-- weavz:discovery:end -->
 
 Review the sampled HubSpot deals for stage, amount, and target-close timing. Call out near-term open deals and any missing close dates without describing the sample as the full pipeline.
 
