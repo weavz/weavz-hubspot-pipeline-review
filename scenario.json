@@ -1,0 +1,89 @@
+{
+  "id": "hubspot-pipeline-review",
+  "title": "HubSpot Pipeline Review",
+  "prompt": "Review the sampled HubSpot deals for stage, amount, and target-close timing. Call out near-term open deals and any missing close dates without describing the sample as the full pipeline.",
+  "instructions": "List only the requested first page of deals and the explicitly selected properties. Treat amounts as synthetic USD examples and do not calculate revenue recognition, forecasts, or organization-wide totals. Distinguish open pipeline from closed-won records. Do not update deals or contact owners.",
+  "fixture_summary": "Synthetic HubSpot page has three deals: two open opportunities and one closed-won deal. One open deal lacks a close date.",
+  "inputs": {
+    "limit": 3,
+    "properties": "dealname,amount,dealstage,closedate,pipeline"
+  },
+  "steps": [
+    {
+      "id": "list_pipeline_deals",
+      "alias": "sales_pipeline",
+      "integration": "hubspot",
+      "action": "list_deals",
+      "tool": "sales_pipeline__list_deals",
+      "arguments": {
+        "limit": 3,
+        "properties": "dealname,amount,dealstage,closedate,pipeline"
+      },
+      "records": [
+        {
+          "id": "hs-deal-11",
+          "app": "HubSpot",
+          "title": "Northwind annual renewal",
+          "detail": "Synthetic deal: open, USD 48000, target close 2026-11-22.",
+          "url": "https://example.com/records/hs-deal-11",
+          "deal_id": "hs-deal-11",
+          "deal_stage": "open",
+          "amount_usd": 48000,
+          "close_date": "2026-11-22",
+          "close_date_known": true
+        },
+        {
+          "id": "hs-deal-12",
+          "app": "HubSpot",
+          "title": "Juniper analytics expansion",
+          "detail": "Synthetic deal: open, USD 27500, no target close date set.",
+          "url": "https://example.com/records/hs-deal-12",
+          "deal_id": "hs-deal-12",
+          "deal_stage": "open",
+          "amount_usd": 27500,
+          "close_date": null,
+          "close_date_known": false
+        },
+        {
+          "id": "hs-deal-13",
+          "app": "HubSpot",
+          "title": "Bluebird support renewal",
+          "detail": "Synthetic deal: closed won, USD 16000, close date 2026-11-04.",
+          "url": "https://example.com/records/hs-deal-13",
+          "deal_id": "hs-deal-13",
+          "deal_stage": "closedwon",
+          "amount_usd": 16000,
+          "close_date": "2026-11-04",
+          "close_date_known": true
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "name": "sampled_deals",
+      "op": "count"
+    },
+    {
+      "name": "open_pipeline_amount_usd",
+      "op": "sum",
+      "field": "amount_usd",
+      "where": {
+        "deal_stage": "open"
+      }
+    },
+    {
+      "name": "open_deals_missing_close_date",
+      "op": "count",
+      "where": {
+        "deal_stage": "open",
+        "close_date_known": false
+      }
+    }
+  ],
+  "expected_metrics": {
+    "sampled_deals": 3,
+    "open_pipeline_amount_usd": 75500,
+    "open_deals_missing_close_date": 1
+  }
+}
